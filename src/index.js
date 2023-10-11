@@ -6,19 +6,37 @@ import Contact from './routes/Contact';
 import Home from './routes/Home';
 import {
   createBrowserRouter,
+  Navigate,
   RouterProvider,
 } from "react-router-dom";
 import Error from './routes/Error';
+import ContactDetails from './routes/ContactDetails';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
+    element: <App />,
+    children: [
+      {
+        path: '/',
+        element: <Home />
+      },
+      {
+        path: '/contact',
+        element: <Contact />
+      }
+    ],
     errorElement: <Error />
   },
+  // nested routes ou dynamic routes
   {
-    path: '/contact',
-    element: <Contact />,
+    path:'contacts/:id',
+    element:<ContactDetails/>
+  },
+  // navigate p páginas não existentes
+  {
+    path:'oldcontact',
+    element:<Navigate to='/contact'/>
   },
 ])
 
